@@ -53,5 +53,24 @@ function getdice2016excelparameters(filename)
     p[:tatm0]       = getparams(f, "B76:B76", :single, "Base", 1)       #Initial atmospheric temp change 2015 (C from 1940-60)
     p[:tocean0]     = getparams(f, "B77:B77", :single, "Base", 1)       #Initial temperature of deep oceans (deg C above 1940-60)
 
+
+    ## ADDED PARAMETERS
+    
+    ## Inflation from BEA deflator, annual values 113.626/92.486 from: https://apps.bea.gov/iTable/iTable.cfm?reqid=19&step=2#reqid=19&step=2&isuri=1&1921=survey 
+    p[:inflation] =  1.228575
+
+    ## Damage Funtion Parameters
+    ## Wetizman 2012
+    p[:w_temp] =  5.07E-6 ## parameter on temperature
+    p[:w_exp]  =  6.754   ## exponent on temperature
+
+    # Howard and Sterner (2017) prefered specification table 2 specification (4)
+    p[:hs_t2]      =  0.59538273 ## non-catastrophic damages
+    p[:hs_cat_t2]  =  0.25985113 ## catastrophic damages 
+    p[:hs_prod_t2] =  0.11332489 ## productivity damages
+
     return p
 end
+
+# Damage function choices
+@enum damage_choice DICE WEITZMAN HOWARD_STERNER_1 HOWARD_STERNER_2 HOWARD_STERNER_3 

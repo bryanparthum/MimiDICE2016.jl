@@ -5,7 +5,7 @@ Computes the social cost of CO2 for an emissions pulse in `year` for the provide
 If no model is provided, the default model from MimiDICE2016.get_model() is used.
 Constant discounting is used from the specified pure rate of time preference `prtp`.
 """
-function compute_scc(m::Model=get_model(); year::Union{Int, Nothing} = nothing, last_year::Int = model_years[end], prtp::Float64 = 0.015, eta=1.45)
+function compute_scc(m::Model=get_model(); year::Union{Int, Nothing} = nothing, last_year::Int = model_years[end], prtp::Float64 = 0.015, eta=1.45, )
     year === nothing ? error("Must specify an emission year. Try `compute_scc(m, year=2020)`.") : nothing
     !(last_year in model_years) ? error("Invalid value of $last_year for last_year. last_year must be within the model's time index $model_years.") : nothing
     !(year in model_years[1]:5:last_year) ? error("Cannot compute the scc for year $year, year must be within the model's time index $(model_years[1]):5:$last_year.") : nothing
